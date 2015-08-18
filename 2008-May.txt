@@ -1,0 +1,206 @@
+From MKoch at rowa.de  Fri May  2 11:35:57 2008
+From: MKoch at rowa.de (Koch Michael)
+Date: Fri, 2 May 2008 11:35:57 +0200
+Subject: [posps-devel] Changes to posps wsdl to improve generated code of
+	wsdl.exe
+Message-ID: <DAE96EFCFE785241A00B2863182F621E3E992D@svrowa21.rowa.local>
+
+After feedback from developers who use the Microsoft .Net wsdl.exe to
+generate code from the posps wsdl file, we have decided to make two major
+changes to the specification to make code generation and working with the
+generated code easier:
+
+* Changed XML Schema types nonNegativeInteger and positiveInteger to
+unsignedLong.
+* Changed names of many operations to make names unique even across ports,
+and to improve consistency.
+
+The XML Schema standard types "nonNegativeInteger" and "positiveInteger"
+were originally used because they were the best fit for the given data,
+without artificially restricting the value range. Unfortunately, wsdl.exe
+maps these types to the .Net datatype String, which makes the generated code
+awkward to use. "unsignedLong" is mapped to UInt64, which is much easier.
+The value range of an unsignedLong should accomodate even the most unforseen
+applications of the posps interface. Java JAX-WS maps unsignedLong to a
+BigInteger, which works well, too.
+
+Some operation names were the same for different ports, e. g. "addPerson"
+for ports "Sale" and "Pickup". Since this makes sourde code generation
+harder or even impossible with some tools, the names of these methods have
+been changed to make them unique. For this, a new naming convention has been
+adopted which states that the name of the port must appear somewhere in name
+of any of its operation, usually as or after the verb at the beginning of
+the operation name (if it starts with a verb). The names of affected
+operations have been updated accordingly.
+
+If there are any further problems with code generation, please keep us
+informed. We'd also like to hear of the experience people have with other
+code generators.
+
+You can always get the latest list of changes to the specification here:
+http://posps.rowa.de/posps-spec/changes-report.html
+
+Regards
+Michael Koch
+Rowa Automatisierungssysteme GmbH
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: smime.p7s
+Type: application/x-pkcs7-signature
+Size: 3747 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/posps-devel/attachments/20080502/e9967636/attachment.bin>
+
+From MKoch at rowa.de  Fri May  2 11:47:09 2008
+From: MKoch at rowa.de (Koch Michael)
+Date: Fri, 2 May 2008 11:47:09 +0200
+Subject: [posps-devel] Added context element to article search to enable
+	sale-specific information in search result
+Message-ID: <DAE96EFCFE785241A00B2863182F621E3E992E@svrowa21.rowa.local>
+
+Up until now, the operation Search.searchArticle was independent of any sale. This made it impossible to return sale-specific information in search results. An important use-case for this is to show the customer rebate informations in the search result view, e. g. "1? off normal price". To make this use-case possible, we have added an ArticleSearchContext parameter to Search.searchArticle and an element priceContextSpecific to the article search result. The POS and PS can use these parameters to calculate sale-specific prices.
+
+Regards
+Michael Koch
+Rowa Automatisierungssysteme GmbH
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: smime.p7s
+Type: application/x-pkcs7-signature
+Size: 3747 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/posps-devel/attachments/20080502/7ec5248d/attachment.bin>
+
+From MKoch at rowa.de  Fri May  2 21:48:53 2008
+From: MKoch at rowa.de (Koch Michael)
+Date: Fri, 2 May 2008 21:48:53 +0200
+Subject: [posps-devel] Defining "profiles" as subsets of posps functionality
+Message-ID: <DAE96EFCFE785241A00B2863182F621E4986A6@svrowa21.rowa.local>
+
+Since the posps specification covers a large number of possible usages and
+even more optional elements, it is a bit difficult to comprehend. It is also
+unrealistic to expect (and unneccessary) that a server implementor will
+fully cover the specification in the first release. Nevertheless, server and
+client must agree on the functionality which must be offered by the server
+in order for the client to work. We therefore want to specify "profiles",
+which define subsets of the posps specification which are implemented by a
+server. Server implementors can then choose to cover any number of profiles.
+Clients can ask which profiles a server covers using the newly defined Posps
+port and adapt their functionality accordingly.
+
+A profile will define the ports, operations and elements which are required
+to be implemented by the server which states to support it. Profiles will be
+defined in collaboration with pharmacy IT system vendors. We want to use the
+profiles as basis of an "expansion strategy" where a newly developed posps
+server starts out implementing profiles for basic functionality. Over time,
+it can be expanded to cover more advanced profiles.
+
+The first two profiles we want to define are "basic sale" and "basic
+pickup". "basic sale" will cover sale of articles without prescriptions. It
+doesn't include customer or operator information. Accordingly, search for
+articles must be supported, but not for persons. "basic pickup" will cover
+only the minimum set of operations for a pickup. Specifics for both profiles
+have yet to be determined.
+
+Since the posps specification has to work in different countries, profile
+definitions can vary from country to country (especially in the supported
+elements). Therefore, the profile specification also contains the country
+for which this profile is defined. The XML Schema type therefore defines
+PospsProfile as profile name, a list of country codes for which the profile
+is covered, and the version of the profile specification.
+
+Regards
+Michael Koch
+Rowa Automatisierungssysteme GmbH 
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: smime.p7s
+Type: application/x-pkcs7-signature
+Size: 3747 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/posps-devel/attachments/20080502/d5761af1/attachment.bin>
+
+From MKoch at rowa.de  Fri May  2 21:48:51 2008
+From: MKoch at rowa.de (Koch Michael)
+Date: Fri, 2 May 2008 21:48:51 +0200
+Subject: [posps-devel] New port Posps for meta-information
+Message-ID: <DAE96EFCFE785241A00B2863182F621E4986A5@svrowa21.rowa.local>
+
+I've just added a new port named "Posps" to the specification. This port can
+be used by clients to query meta-information from servers. This information
+includes things like implemented posps version, server vendor and product.
+Clients can ask the server which profiles it supports. For information about
+profiles, see the related post.
+
+Regards
+Michael Koch
+Rowa Automatisierungssysteme GmbH 
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: smime.p7s
+Type: application/x-pkcs7-signature
+Size: 3747 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/posps-devel/attachments/20080502/c913f1d7/attachment.bin>
+
+From MKoch at rowa.de  Mon May  5 09:03:22 2008
+From: MKoch at rowa.de (Koch Michael)
+Date: Mon, 5 May 2008 09:03:22 +0200
+Subject: [posps-devel] Changes to Search port result elements
+Message-ID: <DAE96EFCFE785241A00B2863182F621E3E995A@svrowa21.rowa.local>
+
+In the course of the WSDL design cleanup, I've changed definition of results
+of searchArticle, searchPerson and getNextSearchResults. Previously, all
+operations returned the same element in which the searchResultId was
+optional. It was only stated in the documentation when it has to be set. The
+new definition makes it explicit that a SearchResultId must be returned by
+search..., but must not be returned by getNextSearchResults. 
+
+Regards
+Michael Koch
+Rowa Automatisierungssysteme GmbH 
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: smime.p7s
+Type: application/x-pkcs7-signature
+Size: 3747 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/posps-devel/attachments/20080505/05abd374/attachment.bin>
+
+From MKoch at rowa.de  Mon May  5 09:18:18 2008
+From: MKoch at rowa.de (Koch Michael)
+Date: Mon, 5 May 2008 09:18:18 +0200
+Subject: [posps-devel] return type naming convention / updated return types
+Message-ID: <DAE96EFCFE785241A00B2863182F621E3E995C@svrowa21.rowa.local>
+
+After the recent addition of the Posps port and having another look at the
+"wrapped" document/literal convention for web service design, it became
+apparent that there was an inconsistency in the naming of the operation
+result elements. Since we are still in the early implementation phase, I
+think that it is still early enough to fix it. I adopted this naming
+condition:
+
+* Operations which don't return a value return the element "empty" (no
+change to existing specification)
+* When several operations return the same type, they use a shared element
+ending on "Result" (e. g. saleServerDataResult) (no change)
+* When an operation returns elements specific to this operation, the return
+element has the name of the operation + "Response" (which follows the
+"wrapped" convention) (some operation definition had to be changed to follow
+this rule)
+
+For an explanation of the "wrapped" document/literal convention see
+http://atmanes.blogspot.com/2005/03/wrapped-documentliteral-convention.html
+.
+
+Regards
+Michael Koch
+Rowa Automatisierungssysteme GmbH 
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: smime.p7s
+Type: application/x-pkcs7-signature
+Size: 3747 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/posps-devel/attachments/20080505/7a10a1f6/attachment.bin>
+

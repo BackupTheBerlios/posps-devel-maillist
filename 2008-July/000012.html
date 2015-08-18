@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [posps-devel] Geplante &#196;nderungen an der posps WSDL
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/posps-devel/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:posps-devel%40lists.berlios.de?Subject=Re%3A%20%5Bposps-devel%5D%20%3D%3Fiso-8859-1%3Fq%3FGeplante_%3DC4nderungen_an_der_posps_W%3F%3D%0A%09%3D%3Fiso-8859-1%3Fq%3FSDL%3F%3D&In-Reply-To=%3CDAE96EFCFE785241A00B2863182F621E4B40DE%40svrowa21.rowa.local%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[posps-devel] Geplante &#196;nderungen an der posps WSDL</H1>
+    <B>Koch Michael</B> 
+    <A HREF="mailto:posps-devel%40lists.berlios.de?Subject=Re%3A%20%5Bposps-devel%5D%20%3D%3Fiso-8859-1%3Fq%3FGeplante_%3DC4nderungen_an_der_posps_W%3F%3D%0A%09%3D%3Fiso-8859-1%3Fq%3FSDL%3F%3D&In-Reply-To=%3CDAE96EFCFE785241A00B2863182F621E4B40DE%40svrowa21.rowa.local%3E"
+       TITLE="[posps-devel] Geplante &#196;nderungen an der posps WSDL">MKoch at rowa.de
+       </A><BR>
+    <I>Fri Jul  4 11:10:24 CEST 2008</I>
+    <P><UL>
+        
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#12">[ date ]</a>
+              <a href="thread.html#12">[ thread ]</a>
+              <a href="subject.html#12">[ subject ]</a>
+              <a href="author.html#12">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hallo!
+
+Hier eine kurze &#220;bersicht der &#196;nderungen an der WSDL, die wir angedacht,
+aber noch nicht umgesetzt haben.
+
+** Preis&#228;nderungen durch Client verbieten
+
+Wie schon besprochen, werden wir wegen Sicherheitsbedenken die Funktion der
+Preisfestsetzung durch den posps client (also den Apotheker, der den client
+bedient) rausnehmen. Die Elemente EditPositionData.articlePrice und
+.positionPrice werden gel&#246;scht.
+
+** Definition von Elementen, deren Inhalt m&#246;glicherweise unbekannt ist,
+vereinheitlichen
+
+Die Elemente, deren Inhalt m&#246;glicherweise unbekannt ist (wie das von Ihnen
+gesagte Postleitzahl-Feld), sollen einheitlich definiert werden. Die
+Elemente sollten entweder Optional oder Nillable sein, aber nicht beides.
+Einige Elemente werden m&#246;glicherweise noch als optional definiert.
+
+** Operation um Geb&#252;hren (Notdienstgeb&#252;hr) hinzuf&#252;gen/l&#246;schen
+
+Es gibt zur Zeit keine M&#246;glichkeit f&#252;r den Apotheker, die Notdienstgeb&#252;hr
+von Hand zu beeinflussen. Idealerweise wei&#223; die WaWi, ob die Notdienstgeb&#252;hr
+f&#252;r den aktuellen Verkauf erhoben werden soll oder nicht (anhand Uhrzeit,
+hinterlegtem Notdienstplan, Angabe zur Notdienstgeb&#252;hr auf dem Rezept). Wenn
+die WaWi das aber nicht oder nicht richtig bestimmt, muss der Apotheker das
+von Hand &#228;ndern k&#246;nnen.
+
+Mir schwebt eine Operation Sale.addSaleCharge vor, &#252;ber die der Client eine
+Geb&#252;hr zum Total hinzuf&#252;gen kann. &#220;bergeben wird die Art der Geb&#252;hr (siehe
+Total.Charge.kind) und optional der Betrag. Der Betrag ist optional, da z.
+B. die Notdienstgeb&#252;hr gesetzlich festgelegt ist und der Apotheker die nicht
+selbst setzen kann. 
+
+** Suchfilter apothekenpflichtig/rezeptpflichtig
+
+Wir haben festgestellt, dass uns noch Suchfelder f&#252;r die Kriterien
+apothekenpflichtig und rezeptpflichtig fehlen. Bei Suchen insbesondere f&#252;r
+Selbstbedienung l&#228;sst sich das Suchergebnis anhand dieser Attribute schon
+auf Serverseite sehr stark reduzieren.
+
+** Server-seitiges Limit f&#252;r Suchergebnisgr&#246;&#223;e an Client &#252;bermitteln
+
+Aus Performance-Gr&#252;nden werden Server vermutlich die Anzahl der
+zur&#252;ckgegebenen Suchtreffer begrenzen (z. B. maximal 500 Treffer). Die
+Information, dass ein Suchergebnis mehr Treffer hat, die aber nicht
+&#252;bermittelt werden, sollte dem Client mitgeteilt werden.
+
+** Einnahmehinweise f&#252;r den Ausdruck auf den Beleg
+
+Wir haben im visavia eine Funktion, &#252;ber die der Apotheker f&#252;r jede Position
+im Verkauf einen kurzen Text (&#252;blicherweise den Einnahmehinweis) eingeben
+kann. Der Text wird mit auf dem Beleg ausgedruckt. Das ist &#252;ber posps im
+Moment nicht m&#246;glich. PositionData k&#246;nnte &#252;ber ein entsprechendes Attribut
+erweitert werden.
+
+** Behandlung Rabattvertr&#228;ge
+
+Wie telefonisch besprochen, muss der Ablauf zur Behandlung von
+Rabattvertr&#228;gen noch durchgegangen und m&#246;glicherweise angepasst werden.
+
+** Abfrage/Handhabung Artikelgruppen f&#252;r Selbstbedienung
+
+Wegen dem Artikelgruppen-Baum, durch den der Kunde navigieren kann, gibt es
+auch noch Kl&#228;rungsbedarf:
+
+* Soll der Baum auf dem Server gepflegt und vom Client abgefragt werden
+k&#246;nnen?
+* Ist die mit den jetzigen Attributen definierte Artikelsuche performant
+genug, um alle Artikel im Baum abzufragen, oder muss es eine spezielle
+Suchfunktion f&#252;r diese Artikel geben?
+
+
+Viele Gr&#252;&#223;e
+Michael Koch
+
+
+Rowa Automatisierungssysteme GmbH
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: smime.p7s
+Type: application/x-pkcs7-signature
+Size: 3747 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/posps-devel/attachments/20080704/3a1204c1/attachment.bin">https://lists.berlios.de/pipermail/posps-devel/attachments/20080704/3a1204c1/attachment.bin</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#12">[ date ]</a>
+              <a href="thread.html#12">[ thread ]</a>
+              <a href="subject.html#12">[ subject ]</a>
+              <a href="author.html#12">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/posps-devel">More information about the posps-devel
+mailing list</a><br>
+</body></html>

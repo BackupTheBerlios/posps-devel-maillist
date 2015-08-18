@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [posps-devel] return types of Sale and Pickup operations changed to	return the whole data model
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/posps-devel/2008-June/index.html" >
+   <LINK REL="made" HREF="mailto:posps-devel%40lists.berlios.de?Subject=Re%3A%20%5Bposps-devel%5D%20return%20types%20of%20Sale%20and%20Pickup%20operations%20changed%20to%0A%09return%20the%20whole%20data%20model&In-Reply-To=%3CDAE96EFCFE785241A00B2863182F621E4B390A%40svrowa21.rowa.local%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000009.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[posps-devel] return types of Sale and Pickup operations changed to	return the whole data model</H1>
+    <B>Koch Michael</B> 
+    <A HREF="mailto:posps-devel%40lists.berlios.de?Subject=Re%3A%20%5Bposps-devel%5D%20return%20types%20of%20Sale%20and%20Pickup%20operations%20changed%20to%0A%09return%20the%20whole%20data%20model&In-Reply-To=%3CDAE96EFCFE785241A00B2863182F621E4B390A%40svrowa21.rowa.local%3E"
+       TITLE="[posps-devel] return types of Sale and Pickup operations changed to	return the whole data model">MKoch at rowa.de
+       </A><BR>
+    <I>Wed Jun  4 16:30:09 CEST 2008</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000009.html">[posps-devel] Sale and Pickup examples
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#8">[ date ]</a>
+              <a href="thread.html#8">[ thread ]</a>
+              <a href="subject.html#8">[ subject ]</a>
+              <a href="author.html#8">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>The Sale and Pickup operations which modify the data model now return the
+whole data model instead of only the changes. This change has been made
+after discussing the handling with posps implementors. We think the change
+improves the specification in the following ways:
+
+* the interface definition is easier to understand and more consistent
+* reduced possibilities for errors when generating the changes from the
+updated data model on the server side
+* reduced possibilities for errors when processing the changes on the client
+side
+* simplified debugging of posps implementations since the current data model
+can be viewed by inspecting the interface communication
+
+Regards
+Michael Koch
+Rowa Automatisierungssysteme GmbH 
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: smime.p7s
+Type: application/x-pkcs7-signature
+Size: 3747 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/posps-devel/attachments/20080604/8b0a479f/attachment.bin">https://lists.berlios.de/pipermail/posps-devel/attachments/20080604/8b0a479f/attachment.bin</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000009.html">[posps-devel] Sale and Pickup examples
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#8">[ date ]</a>
+              <a href="thread.html#8">[ thread ]</a>
+              <a href="subject.html#8">[ subject ]</a>
+              <a href="author.html#8">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/posps-devel">More information about the posps-devel
+mailing list</a><br>
+</body></html>

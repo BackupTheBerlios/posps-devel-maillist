@@ -1,0 +1,94 @@
+From MKoch at rowa.de  Fri Jul  4 11:10:24 2008
+From: MKoch at rowa.de (Koch Michael)
+Date: Fri, 4 Jul 2008 11:10:24 +0200
+Subject: [posps-devel] =?iso-8859-1?q?Geplante_=C4nderungen_an_der_posps_W?=
+	=?iso-8859-1?q?SDL?=
+Message-ID: <DAE96EFCFE785241A00B2863182F621E4B40DE@svrowa21.rowa.local>
+
+Hallo!
+
+Hier eine kurze ?bersicht der ?nderungen an der WSDL, die wir angedacht,
+aber noch nicht umgesetzt haben.
+
+** Preis?nderungen durch Client verbieten
+
+Wie schon besprochen, werden wir wegen Sicherheitsbedenken die Funktion der
+Preisfestsetzung durch den posps client (also den Apotheker, der den client
+bedient) rausnehmen. Die Elemente EditPositionData.articlePrice und
+.positionPrice werden gel?scht.
+
+** Definition von Elementen, deren Inhalt m?glicherweise unbekannt ist,
+vereinheitlichen
+
+Die Elemente, deren Inhalt m?glicherweise unbekannt ist (wie das von Ihnen
+gesagte Postleitzahl-Feld), sollen einheitlich definiert werden. Die
+Elemente sollten entweder Optional oder Nillable sein, aber nicht beides.
+Einige Elemente werden m?glicherweise noch als optional definiert.
+
+** Operation um Geb?hren (Notdienstgeb?hr) hinzuf?gen/l?schen
+
+Es gibt zur Zeit keine M?glichkeit f?r den Apotheker, die Notdienstgeb?hr
+von Hand zu beeinflussen. Idealerweise wei? die WaWi, ob die Notdienstgeb?hr
+f?r den aktuellen Verkauf erhoben werden soll oder nicht (anhand Uhrzeit,
+hinterlegtem Notdienstplan, Angabe zur Notdienstgeb?hr auf dem Rezept). Wenn
+die WaWi das aber nicht oder nicht richtig bestimmt, muss der Apotheker das
+von Hand ?ndern k?nnen.
+
+Mir schwebt eine Operation Sale.addSaleCharge vor, ?ber die der Client eine
+Geb?hr zum Total hinzuf?gen kann. ?bergeben wird die Art der Geb?hr (siehe
+Total.Charge.kind) und optional der Betrag. Der Betrag ist optional, da z.
+B. die Notdienstgeb?hr gesetzlich festgelegt ist und der Apotheker die nicht
+selbst setzen kann. 
+
+** Suchfilter apothekenpflichtig/rezeptpflichtig
+
+Wir haben festgestellt, dass uns noch Suchfelder f?r die Kriterien
+apothekenpflichtig und rezeptpflichtig fehlen. Bei Suchen insbesondere f?r
+Selbstbedienung l?sst sich das Suchergebnis anhand dieser Attribute schon
+auf Serverseite sehr stark reduzieren.
+
+** Server-seitiges Limit f?r Suchergebnisgr??e an Client ?bermitteln
+
+Aus Performance-Gr?nden werden Server vermutlich die Anzahl der
+zur?ckgegebenen Suchtreffer begrenzen (z. B. maximal 500 Treffer). Die
+Information, dass ein Suchergebnis mehr Treffer hat, die aber nicht
+?bermittelt werden, sollte dem Client mitgeteilt werden.
+
+** Einnahmehinweise f?r den Ausdruck auf den Beleg
+
+Wir haben im visavia eine Funktion, ?ber die der Apotheker f?r jede Position
+im Verkauf einen kurzen Text (?blicherweise den Einnahmehinweis) eingeben
+kann. Der Text wird mit auf dem Beleg ausgedruckt. Das ist ?ber posps im
+Moment nicht m?glich. PositionData k?nnte ?ber ein entsprechendes Attribut
+erweitert werden.
+
+** Behandlung Rabattvertr?ge
+
+Wie telefonisch besprochen, muss der Ablauf zur Behandlung von
+Rabattvertr?gen noch durchgegangen und m?glicherweise angepasst werden.
+
+** Abfrage/Handhabung Artikelgruppen f?r Selbstbedienung
+
+Wegen dem Artikelgruppen-Baum, durch den der Kunde navigieren kann, gibt es
+auch noch Kl?rungsbedarf:
+
+* Soll der Baum auf dem Server gepflegt und vom Client abgefragt werden
+k?nnen?
+* Ist die mit den jetzigen Attributen definierte Artikelsuche performant
+genug, um alle Artikel im Baum abzufragen, oder muss es eine spezielle
+Suchfunktion f?r diese Artikel geben?
+
+
+Viele Gr??e
+Michael Koch
+
+
+Rowa Automatisierungssysteme GmbH
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: smime.p7s
+Type: application/x-pkcs7-signature
+Size: 3747 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/posps-devel/attachments/20080704/3a1204c1/attachment.bin>
+

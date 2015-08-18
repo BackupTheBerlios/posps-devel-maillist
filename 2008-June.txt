@@ -1,0 +1,168 @@
+From MKoch at rowa.de  Wed Jun  4 16:30:09 2008
+From: MKoch at rowa.de (Koch Michael)
+Date: Wed, 4 Jun 2008 16:30:09 +0200
+Subject: [posps-devel] return types of Sale and Pickup operations changed to
+	return the whole data model
+Message-ID: <DAE96EFCFE785241A00B2863182F621E4B390A@svrowa21.rowa.local>
+
+The Sale and Pickup operations which modify the data model now return the
+whole data model instead of only the changes. This change has been made
+after discussing the handling with posps implementors. We think the change
+improves the specification in the following ways:
+
+* the interface definition is easier to understand and more consistent
+* reduced possibilities for errors when generating the changes from the
+updated data model on the server side
+* reduced possibilities for errors when processing the changes on the client
+side
+* simplified debugging of posps implementations since the current data model
+can be viewed by inspecting the interface communication
+
+Regards
+Michael Koch
+Rowa Automatisierungssysteme GmbH 
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: smime.p7s
+Type: application/x-pkcs7-signature
+Size: 3747 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/posps-devel/attachments/20080604/8b0a479f/attachment.bin>
+
+From MKoch at rowa.de  Mon Jun  9 13:43:36 2008
+From: MKoch at rowa.de (Koch Michael)
+Date: Mon, 9 Jun 2008 13:43:36 +0200
+Subject: [posps-devel] Sale and Pickup examples
+Message-ID: <DAE96EFCFE785241A00B2863182F621E4B3A44@svrowa21.rowa.local>
+
+I have added examples for a basic sale and a basic pickup to the posps-spec
+pages. See http://posps.rowa.de/posps-spec/examples.html . There is also an
+example for the way the payment process works. We will continue to add
+examples according to the wishes of implementors.
+
+Regards
+Michael Koch
+Rowa Automatisierungssysteme GmbH 
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: smime.p7s
+Type: application/x-pkcs7-signature
+Size: 3747 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/posps-devel/attachments/20080609/6aebeec6/attachment.bin>
+
+From MKoch at rowa.de  Mon Jun 16 22:10:26 2008
+From: MKoch at rowa.de (Koch Michael)
+Date: Mon, 16 Jun 2008 22:10:26 +0200
+Subject: [posps-devel] Change of type and element names to improve naming
+Message-ID: <DAE96EFCFE785241A00B2863182F621E4B3C55@svrowa21.rowa.local>
+
+After the request of a developer I've changed the names of the elements and
+types [Position/Person/Prescription/Note] to []Data and the types
+[]ServerData to []. E. g. the element position has become positionData, the
+type Position PositionData and PositionServerData has become Position. This
+means that a Position now has the elements positionId (type PositionId) and
+positionData (type PositionData). This new naming scheme is much more
+consistent and readable. Developers who are already using code based on the
+WSDL should note that the Position class generated from the WSDL now has a
+different meaning.
+
+To make the price information of the Position type easier to understand, the
+element price has been renamed to articlePrice and total has been renamed to
+positionPrice (which is usually articlePrice x amount). The elements thus
+cannot be confused with the total element any longer.
+
+Regards
+Michael Koch
+Rowa Automatisierungssysteme GmbH 
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: smime.p7s
+Type: application/x-pkcs7-signature
+Size: 3747 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/posps-devel/attachments/20080616/be0ebe50/attachment.bin>
+
+From MKoch at rowa.de  Thu Jun 19 11:33:25 2008
+From: MKoch at rowa.de (Koch Michael)
+Date: Thu, 19 Jun 2008 11:33:25 +0200
+Subject: [posps-devel] Prescription sale example / Changes to the interface
+	specification
+Message-ID: <DAE96EFCFE785241A00B2863182F621E4B3D6D@svrowa21.rowa.local>
+
+I have just published a more involved example of a sale, which showcases how a 
+sale on prescription, the operator and customer work. You can find it in the 
+examples section of the specification module under "Prescription Sale". In the 
+course of writing the example, I had to make several changes to the interface 
+definition.
+
+* Handling of Operators
+
+The way an operator (the pharmacist who serves the customer) is handled was 
+changed. Operators are no more of type Person, but have their own datatype 
+Operator. They are now not maintained by the                 server any more, 
+but by the client. The server is merely informed if the client sets an 
+operator. Here are more details, copied from the newly added WSDL 
+documentation:
+
+The operator is the person who serves and advises the customer at the posps 
+client. Usually this is done by a pharmacist or a pharmacy technician. Since 
+the posps interface is used in circumstances where posps clients are operated 
+by pharmacists who are not usually working for the pharmacy where the client 
+is installed (e. g. service center pharmacists), a mapping from a posps 
+operator to an operator configured the posps server is problematic. The posps 
+interface therefore defines no mechanism to query, create or update operators 
+of the the posps server. It instead assumes that the posps client has its own 
+mechanism for maintaining a database of allowed operators. The operator 
+authenticates with the client and the server is merely informed about this by 
+the client calling setSaleOperator/setPickupOperator.
+
+* Definition of ArticleSearchPatternCountrySpecific and 
+ArticleSearchOrderCountrySpecific
+
+Due to a misunderstanding of how XML Schema type inheritance works, the two 
+types (and their derived concrete types) didn't work as they should. This has 
+been resolved by creating a type ArticleSearchPattern which contains either a 
+country-independent search element or an element "countrySpecific", which is 
+of type ArticleSearch...CountrySpecific. Here is an example to illustrate 
+this:
+
+<!-- search by country-independent attribute "description" -->
+<condition>
+	<description>aspirin</description>
+</condition>
+
+<!-- search by country-specific attribute PZN -->
+<condition>
+      <countrySpecific xsi:type="pptype:ArticleConditionDE">
+              <pzn>4479146 8671142 1887991 1275791 1927495 4208045</pzn>
+      </countrySpecific>
+</condition>
+
+* Other changes
+
+Added element arzneimittel to PharmaceuticArticleDE.
+
+Changed the definition of packaging to be more free-form (use tokens instead 
+of number and enumeration).
+
+Changed the definition of operation setSaleCustomer. If the person set is not 
+already part of the sale, the server will automatically add it.
+
+Renamed PersonData.company to organization since this name is more general.
+
+Renamed patient, physician and customer to patientId, physicianId and 
+customerId to hint at their data type (PersonId). Also renamed 
+setSaleCustomer.personId to customerId to hint at its usage.
+
+Regards
+Michael Koch
+Rowa Automatisierungssysteme GmbH 
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: smime.p7s
+Type: application/x-pkcs7-signature
+Size: 3747 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/posps-devel/attachments/20080619/479d83fa/attachment.bin>
+

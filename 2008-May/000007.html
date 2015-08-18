@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [posps-devel] return type naming convention / updated return types
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/posps-devel/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:posps-devel%40lists.berlios.de?Subject=Re%3A%20%5Bposps-devel%5D%20return%20type%20naming%20convention%20/%20updated%20return%20types&In-Reply-To=%3CDAE96EFCFE785241A00B2863182F621E3E995C%40svrowa21.rowa.local%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000006.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[posps-devel] return type naming convention / updated return types</H1>
+    <B>Koch Michael</B> 
+    <A HREF="mailto:posps-devel%40lists.berlios.de?Subject=Re%3A%20%5Bposps-devel%5D%20return%20type%20naming%20convention%20/%20updated%20return%20types&In-Reply-To=%3CDAE96EFCFE785241A00B2863182F621E3E995C%40svrowa21.rowa.local%3E"
+       TITLE="[posps-devel] return type naming convention / updated return types">MKoch at rowa.de
+       </A><BR>
+    <I>Mon May  5 09:18:18 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000006.html">[posps-devel] Changes to Search port result elements
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#7">[ date ]</a>
+              <a href="thread.html#7">[ thread ]</a>
+              <a href="subject.html#7">[ subject ]</a>
+              <a href="author.html#7">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>After the recent addition of the Posps port and having another look at the
+&quot;wrapped&quot; document/literal convention for web service design, it became
+apparent that there was an inconsistency in the naming of the operation
+result elements. Since we are still in the early implementation phase, I
+think that it is still early enough to fix it. I adopted this naming
+condition:
+
+* Operations which don't return a value return the element &quot;empty&quot; (no
+change to existing specification)
+* When several operations return the same type, they use a shared element
+ending on &quot;Result&quot; (e. g. saleServerDataResult) (no change)
+* When an operation returns elements specific to this operation, the return
+element has the name of the operation + &quot;Response&quot; (which follows the
+&quot;wrapped&quot; convention) (some operation definition had to be changed to follow
+this rule)
+
+For an explanation of the &quot;wrapped&quot; document/literal convention see
+<A HREF="http://atmanes.blogspot.com/2005/03/wrapped-documentliteral-convention.html">http://atmanes.blogspot.com/2005/03/wrapped-documentliteral-convention.html</A>
+.
+
+Regards
+Michael Koch
+Rowa Automatisierungssysteme GmbH 
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: smime.p7s
+Type: application/x-pkcs7-signature
+Size: 3747 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/posps-devel/attachments/20080505/7a10a1f6/attachment.bin">https://lists.berlios.de/pipermail/posps-devel/attachments/20080505/7a10a1f6/attachment.bin</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000006.html">[posps-devel] Changes to Search port result elements
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#7">[ date ]</a>
+              <a href="thread.html#7">[ thread ]</a>
+              <a href="subject.html#7">[ subject ]</a>
+              <a href="author.html#7">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/posps-devel">More information about the posps-devel
+mailing list</a><br>
+</body></html>

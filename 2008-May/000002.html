@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [posps-devel] Changes to posps wsdl to improve generated code of	wsdl.exe
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/posps-devel/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:posps-devel%40lists.berlios.de?Subject=Re%3A%20%5Bposps-devel%5D%20Changes%20to%20posps%20wsdl%20to%20improve%20generated%20code%20of%0A%09wsdl.exe&In-Reply-To=%3CDAE96EFCFE785241A00B2863182F621E3E992D%40svrowa21.rowa.local%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000003.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[posps-devel] Changes to posps wsdl to improve generated code of	wsdl.exe</H1>
+    <B>Koch Michael</B> 
+    <A HREF="mailto:posps-devel%40lists.berlios.de?Subject=Re%3A%20%5Bposps-devel%5D%20Changes%20to%20posps%20wsdl%20to%20improve%20generated%20code%20of%0A%09wsdl.exe&In-Reply-To=%3CDAE96EFCFE785241A00B2863182F621E3E992D%40svrowa21.rowa.local%3E"
+       TITLE="[posps-devel] Changes to posps wsdl to improve generated code of	wsdl.exe">MKoch at rowa.de
+       </A><BR>
+    <I>Fri May  2 11:35:57 CEST 2008</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000003.html">[posps-devel] Added context element to article search to enable	sale-specific information in search result
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2">[ date ]</a>
+              <a href="thread.html#2">[ thread ]</a>
+              <a href="subject.html#2">[ subject ]</a>
+              <a href="author.html#2">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>After feedback from developers who use the Microsoft .Net wsdl.exe to
+generate code from the posps wsdl file, we have decided to make two major
+changes to the specification to make code generation and working with the
+generated code easier:
+
+* Changed XML Schema types nonNegativeInteger and positiveInteger to
+unsignedLong.
+* Changed names of many operations to make names unique even across ports,
+and to improve consistency.
+
+The XML Schema standard types &quot;nonNegativeInteger&quot; and &quot;positiveInteger&quot;
+were originally used because they were the best fit for the given data,
+without artificially restricting the value range. Unfortunately, wsdl.exe
+maps these types to the .Net datatype String, which makes the generated code
+awkward to use. &quot;unsignedLong&quot; is mapped to UInt64, which is much easier.
+The value range of an unsignedLong should accomodate even the most unforseen
+applications of the posps interface. Java JAX-WS maps unsignedLong to a
+BigInteger, which works well, too.
+
+Some operation names were the same for different ports, e. g. &quot;addPerson&quot;
+for ports &quot;Sale&quot; and &quot;Pickup&quot;. Since this makes sourde code generation
+harder or even impossible with some tools, the names of these methods have
+been changed to make them unique. For this, a new naming convention has been
+adopted which states that the name of the port must appear somewhere in name
+of any of its operation, usually as or after the verb at the beginning of
+the operation name (if it starts with a verb). The names of affected
+operations have been updated accordingly.
+
+If there are any further problems with code generation, please keep us
+informed. We'd also like to hear of the experience people have with other
+code generators.
+
+You can always get the latest list of changes to the specification here:
+<A HREF="http://posps.rowa.de/posps-spec/changes-report.html">http://posps.rowa.de/posps-spec/changes-report.html</A>
+
+Regards
+Michael Koch
+Rowa Automatisierungssysteme GmbH
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: smime.p7s
+Type: application/x-pkcs7-signature
+Size: 3747 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/posps-devel/attachments/20080502/e9967636/attachment.bin">https://lists.berlios.de/pipermail/posps-devel/attachments/20080502/e9967636/attachment.bin</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000003.html">[posps-devel] Added context element to article search to enable	sale-specific information in search result
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2">[ date ]</a>
+              <a href="thread.html#2">[ thread ]</a>
+              <a href="subject.html#2">[ subject ]</a>
+              <a href="author.html#2">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/posps-devel">More information about the posps-devel
+mailing list</a><br>
+</body></html>

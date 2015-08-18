@@ -1,0 +1,84 @@
+From MKoch at rowa.de  Fri Mar 14 14:30:03 2008
+From: MKoch at rowa.de (Koch Michael)
+Date: Fri, 14 Mar 2008 14:30:03 +0100
+Subject: [posps-devel] Welcome to the posps-devel mailling list
+Message-ID: <DAE96EFCFE785241A00B2863182F621E3E9066@svrowa21.rowa.local>
+
+Welcome to the posps-devel mailing list!
+
+This list is intended for discussion of the development of the posps
+specification, tests and reference implementation. You can also post on any
+other topics which you feel may be of interest for developers.
+
+Postings to this list are stored in a searchable archive. Therefore, if you
+post your questions or answers to the list, this archive will become a
+knowledge base which will benefit all persons taking part in posps
+development.
+
+Regards
+Michael Koch
+
+
+Rowa Automatisierungssysteme GmbH & Co. KG
+Rowastra?e 1-3
+D-53539 Kelberg
+
+E-Mail: MKoch at rowa.de
+Web: www.rowa.de
+
+Amtsgericht Wittlich HRA 11951 - Ust. Id.-Nr.: DE180620527
+
+Pers?nlich haftende Gesellschafterin: Rowa Automatisierungssysteme
+Verwaltungs-GmbH
+Sitz der Gesellschaft: Kelberg - Amtsgericht Wittlich HRB 12174
+Gesch?ftsf?hrer: Rudolf M. Wagner, Markus Willems, Dirk Wingenter
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: smime.p7s
+Type: application/x-pkcs7-signature
+Size: 3747 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/posps-devel/attachments/20080314/4961cf46/attachment.bin>
+
+From MKoch at rowa.de  Fri Mar 14 14:47:16 2008
+From: MKoch at rowa.de (Koch Michael)
+Date: Fri, 14 Mar 2008 14:47:16 +0100
+Subject: [posps-devel] =?iso-8859-1?q?Languages_for_mailing_list_postings_?=
+	=?iso-8859-1?q?/_Sprachen_f=FCr_Postings_zu_den_Mailinglisten?=
+Message-ID: <DAE96EFCFE785241A00B2863182F621E3E9067@svrowa21.rowa.local>
+
+While the primary language of the posps project is English, mailing list
+posts in other languages are also welcome (though not neccessarily
+understood by all readers). Languages understood by the current developers
+are English and German.
+
+Obwohl die prim?re Sprache des posps-Projekts Englisch ist, sind
+Mailinglisten-Posts in anderen Sprachen auch willkommen (werden aber nicht
+unbedingt von allen Lesern verstanden). Die von den aktuellen Entwicklern
+verstandenen Sprachen sind Englisch und Deutsch.
+
+Regards
+Michael Koch
+
+
+Rowa Automatisierungssysteme GmbH & Co. KG
+Rowastra?e 1-3
+D-53539 Kelberg
+
+E-Mail: MKoch at rowa.de
+Web: www.rowa.de
+
+Amtsgericht Wittlich HRA 11951 - Ust. Id.-Nr.: DE180620527
+
+Pers?nlich haftende Gesellschafterin: Rowa Automatisierungssysteme
+Verwaltungs-GmbH
+Sitz der Gesellschaft: Kelberg - Amtsgericht Wittlich HRB 12174
+Gesch?ftsf?hrer: Rudolf M. Wagner, Markus Willems, Dirk Wingenter
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: smime.p7s
+Type: application/x-pkcs7-signature
+Size: 3747 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/posps-devel/attachments/20080314/427a798b/attachment.bin>
+
